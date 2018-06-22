@@ -1,0 +1,77 @@
+<header class="card-header"><h4>Test 1 page</h4></header>
+<div class="container">
+    <div class="row">
+        <!--Sidebar-->
+        <div class="col-4">
+            <!--Add main element-->
+            <button class="btn btn-sm btn-outline-dark" ng-click="addChildElement(0)">
+                Add root element
+            </button>
+            <br/>
+            <hr>
+            <!--Search area-->
+            <div>
+                <label>SEARCH:</label>
+                <input class="form-control" ng-model="search">
+            </div>
+            <hr>
+            <!--Creative area-->
+            <div>
+                <button class="btn btn-outline-dark" ng-click="refreshElements()">
+                    Refresh
+                </button>
+            </div>
+            <hr>
+            <!--Login area-->
+            <div>
+                <a href="#!/auth" class="btn btn-outline-dark">
+                    Auth page
+                </a>
+            </div>
+        </div>
+        <!--Body content-->
+        <div class="col-md-8 col-10">
+            <!--SCRIPT START-->
+            <script type="text/ng-template" id="tree_template.html">
+                <div class="tree-node tree-node-content">
+                    <button class="btn btn-outline-success btn-sm" ng-if="element.childrens && element.childrens.length > 0"
+                            ng-click="toggle(this)">
+                        <span class="oi oi-chevron-bottom"
+                              ng-class="{'oi-chevron-right': collapsed, 'oi-chevron-bottom': !collapsed}">
+                        </span>
+                    </button>
+                    {{element.name}}
+                    <div class="float-right">
+                        <button class="btn btn-outline-info btn-sm" ng-click="editElement(element)">
+                            <span class="oi oi-pencil"></span>
+                        </button>
+                        <button class="btn btn-outline-danger btn-sm" ng-click="deleteElement(element)">
+                            <span class="oi oi-trash"></span>
+                        </button>
+                        <button class="btn btn-outline-success btn-sm" ng-click="addChildElement(element.id)">
+                            <span class="oi oi-plus"></span>
+                        </button>
+                    </div>
+                </div>
+                <ol ui-tree-nodes="" ng-model="element.childrens" ng-class="{hidden: collapsed}" class="list-group">
+                    <li ng-repeat="element in element.childrens" ui-tree-node ng-include="'tree_template.html'" id="{{node.id}}"
+                        class="list-group-item list-group-item-action">
+                    </li>
+                </ol>
+            </script>
+            <!--SCRIPT END-->
+            <div class="list-group-item-heading list-group-item-primary text-center">
+                <label>ELEMENTS</label>
+            </div>
+            <!--TREE START-->
+            <div id="tree-root" ui-tree data-nodrag>
+                <ol ui-tree-nodes ng-model="data.elements" class="list-group" ng-class="{active: collapsed}">
+                    <li ng-repeat="element in data.elements" ui-tree-node ng-include="'tree_template.html'"
+                        class="list-group-item list-group-item-action">
+                    </li>
+                </ol>
+            </div>
+            <!--TREE END-->
+        </div>
+    </div>
+</div>

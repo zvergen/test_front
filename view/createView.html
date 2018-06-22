@@ -1,0 +1,17 @@
+<header class="card-header"><h4>Test 3 page</h4></header>
+<div class="container">
+    <div class="flex-row">
+        <label class="col-form-label">Parent Element id: {{parentId}}</label>
+        <br/>
+        <label class="col-form-label">Child Element name:</label>
+        <br/>
+        <input class="form-control" ng-model="newElement.name"/>
+        <label class="col-form-label">Child Element description:</label>
+        <textarea class="form-control" ng-model="newElement.description"></textarea>
+        <br/>
+        <div class="d-flex justify-content-between">
+            <button class="btn btn-sm btn-outline-success" ng-click="createElement(newElement)" >Save</button>
+            <button class="btn btn-sm btn-outline-primary" ng-click="cancelCreate()">Cancel</button>
+        </div>
+    </div>
+</div>
