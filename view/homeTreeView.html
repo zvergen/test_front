@@ -1,0 +1,76 @@
+<nav class="navbar fixed-top navbar-expand-md navbar-light" style="background-color: #e3f2fd;">
+  <h4>Test 1 page</h4>
+  <!--Add main element-->
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+          aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse justify-content-around" id="navbarCollapse">
+    <button class="btn btn-sm btn-outline-dark" ng-click="addChildElement()">
+      Add root element
+    </button>
+    <!--Search area-->
+    <input type="text" class="form-control col-4" ng-model="data.search" placeholder="Search...">
+    <!--Refresh tree-->
+    <div class="btn-group">
+      <button class="btn btn-outline-dark" ng-click="refreshElements()">
+        Refresh
+      </button>
+      <button class="btn btn-outline-primary" ng-click="expandAll()">Expand all</button>
+      <button class="btn btn-outline-primary" ng-click="collapseAll()">Collapse all</button>
+    </div>
+  </div>
+</nav>
+<div class="container">
+  <div class="row">
+    <!--Sidebar-->
+
+    <!--Body content-->
+    <div class="flex-grow-1">
+      <!--SCRIPT START-->
+      <script type="text/ng-template" id="tree_template.html">
+        <div class="tree-node tree-node-content">
+          <button class="btn btn-outline-success btn-sm"
+                  ng-if="element.childrens && element.childrens.length > 0"
+                  ng-click="toggle(this)">
+                        <span class="oi oi-chevron-bottom"
+                              ng-class="{'oi-chevron-right': collapsed, 'oi-chevron-bottom': !collapsed}">
+                        </span>
+          </button>
+          {{element.name}}
+          <div class="float-right">
+            <button class="btn btn-outline-info btn-sm" ng-click="editElement(element)">
+              <span class="oi oi-pencil"></span>
+            </button>
+            <button class="btn btn-outline-danger btn-sm" ng-click="deleteElement(element)">
+              <span class="oi oi-trash"></span>
+            </button>
+            <button class="btn btn-outline-success btn-sm" ng-click="addChildElement(element)">
+              <span class="oi oi-plus"></span>
+            </button>
+          </div>
+        </div>
+        <ol ui-tree-nodes="" ng-model="element.childrens" ng-class="{hidden: collapsed}" class="list-group">
+          <li ng-repeat="element in element.childrens  | filter:data.search" ui-tree-node
+              ng-include="'tree_template.html'"
+              id="{{node.id}}"
+              class="list-group-item list-group-item-action">
+          </li>
+        </ol>
+      </script>
+      <!--SCRIPT END-->
+      <div class="list-group-item-heading list-group-item-dark text-center">
+        ELEMENTS
+      </div>
+      <!--TREE START-->
+      <div id="tree-root" ui-tree data-nodrag>
+        <ol ui-tree-nodes ng-model="data.elements" class="list-group" ng-class="{active: collapsed}">
+          <li ng-repeat="element in data.elements | filter:data.search" ui-tree-node ng-include="'tree_template.html'"
+              class="list-group-item list-group-item-action">
+          </li>
+        </ol>
+      </div>
+      <!--TREE END-->
+    </div>
+  </div>
+</div>

@@ -1,57 +1,66 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="testApp">
 <head>
-    <meta charset="UTF-8">
-    <title>Test page</title>
-    <base href="/test_front/" />
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="css/open-iconic-bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="css/angular-ui-tree.css">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-            crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-            crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
-            integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
-            crossorigin="anonymous"></script>
-    <script src="js/angular-1.6.10/angular.js"></script>
-    <script src="js/angular-1.6.10/angular-route.js"></script>
-    <script src="js/angular-1.6.10/angular-resource.js"></script>
-    <script src="js/angular-1.6.10/angular-sanitize.js"></script>
-    <script src="js/angular-1.6.10/angular-animate.js"></script>
-    <script src="js/angular-ui-tree.js"></script>
-    <script src="js/angular-modal-service.js"></script>
-    <script src="app.js"></script>
-    <script type="text/ng-template" id="modal_window.html">
-        <div class="modal fade">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-header">ВНИМАНИЕ</h4>
-                        <button type="button" class="close" ng-click="close(false)" data-dismiss="modal"
-                                aria-hidden="true">
-                            &times;
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <p>{{question}}</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" ng-click="close(true)" class="btn btn-primary" data-dismiss="modal">
-                            <span class="oi oi-check"></span>Да
-                        </button>
-                        <button type="button" ng-click="close(false)" class="btn btn-default" data-dismiss="modal">
-                            <span class="oi oi-x"></span>Нет
-                        </button>
-                    </div>
-                </div>
-            </div>
+  <meta charset="UTF-8">
+  <title>Test page</title>
+  <base href="/test_front/"/>
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="css/open-iconic-bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="css/angular-ui-tree.css">
+  <script type="text/ng-template" id="modal_window.html">
+    <div class="modal fade">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-header">ВНИМАНИЕ</h4>
+            <button type="button" class="close" ng-click="close(false)" data-dismiss="modal"
+                    aria-hidden="true">
+              &times;
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>{{question}}</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" ng-click="close(true)" class="btn btn-primary" data-dismiss="modal">
+              <span class="oi oi-check"></span>Да
+            </button>
+            <button type="button" ng-click="close(false)" class="btn btn-default" data-dismiss="modal">
+              <span class="oi oi-x"></span>Нет
+            </button>
+          </div>
         </div>
-    </script>
+      </div>
+    </div>
+  </script>
 </head>
-<body ng-controller="defaultCtrl">
-    <div ng-view></div>
+<body ng-controller="defaultCtrl" style="padding-top: 4.5rem">
+<div ng-view></div>
+
+<!--Scripts load-->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
+        integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+        crossorigin="anonymous"></script>
+<!--AngularJS-1.6.10-->
+<script src="js/angular-1.6.10/angular.js"></script>
+<script src="js/angular-1.6.10/angular-route.js"></script>
+<script src="js/angular-1.6.10/angular-resource.js"></script>
+<script src="js/angular-1.6.10/angular-cookies.js"></script>
+<script src="js/angular-1.6.10/angular-sanitize.js"></script>
+<script src="js/angular-1.6.10/angular-animate.js"></script>
+<!--Additional libs-->
+<script src="js/angular-ui-tree.js"></script>
+<script src="js/angular-modal-service.js"></script>
+<!--Application-->
+<script src="app/app.js"></script>
+<script src="app/app.homeTree.js"></script>
+<script src="app/app.edit.js"></script>
+<script src="app/app.create.js"></script>
 </body>
 </html>

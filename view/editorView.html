@@ -1,24 +1,25 @@
-<header class="card-header"><h4>Test 2 page</h4></header>
+<nav class="navbar fixed-top navbar-light" style="background-color: #e3f2fd;"><h4>Test 2 page</h4></nav>
 <div class="container">
-    <div class="row">
-        <div class="flex-fill">
-            <label class="col-form-label">Element id: {{currentElement.id}}</label>
-            <br/>
-            <label class="col-form-label">Element name:</label>
-            <br/>
-            <input class="form-control" ng-model="currentElement.name" ng-value="currentElement.name"/>
-            <label class="col-form-label">Element description:</label>
-            <br/>
-            <textarea class="form-control" ng-model="currentElement.description" ng-value="currentElement.description"></textarea>
-            <br/>
-            <div class="d-flex justify-content-between">
-                <button class="btn btn-sm btn-outline-success" ng-click="saveEdit(currentElement)">
-                    <span class="oi oi-check"></span>Save
-                </button>
-                <button class="btn btn-sm btn-outline-primary" ng-click="cancelEdit()">
-                    <span class="oi oi-x"></span>Cancel
-                </button>
-            </div>
-        </div>
+  <div class="row">
+    <div class="flex-fill">
+      <label class="col-form-label">Element id: {{currentElement.id}}</label>
+      <br/>
+      <label class="col-form-label">Element name:</label>
+      <br/>
+      <input class="form-control" ng-model="currentElement.name" ng-value="currentElement.name"/>
+      <label class="col-form-label">Element description:</label>
+      <br/>
+      <textarea class="form-control" ng-model="currentElement.description"
+                ng-value="currentElement.description"></textarea>
+      <br/>
+      <div class="d-flex justify-content-between">
+        <button class="btn btn-sm btn-outline-success" ng-click="saveEdit(currentElement)">
+          <span class="oi oi-check"></span>Save
+        </button>
+        <button class="btn btn-sm btn-outline-primary" ng-click="cancelEdit()">
+          <span class="oi oi-x"></span>Cancel
+        </button>
+      </div>
     </div>
+  </div>
 </div>
