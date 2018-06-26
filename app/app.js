@@ -4,7 +4,6 @@ angular.module('testApp', [
   'ngRoute',
   'ngResource',
   'ngCookies',
-  'ngSanitize',
   'ui.tree',
   'angularModalService'
 ])
@@ -68,7 +67,7 @@ angular.module('testApp', [
       $logProvider.debugEnabled(true);
 
       $routeProvider
-        .when('/home', {
+        .when('/', {
           templateUrl: '/test_front/view/homeTreeView.html',
           controller: 'HomeTreeCtrl',
           resolve: {
@@ -137,21 +136,7 @@ angular.module('testApp', [
           templateUrl: '/test_front/view/authView.html'
         })
         .otherwise({
-          redirectTo: '/home',
-          resolve: {
-            token: function ($cookies, $location, $q, $log) {
-              $log.debug('### Check token ###');
-              var token = $cookies.get('sessionToken');
-              if (token) {
-                $log.debug('Token found');
-                return token;
-              } else {
-                $location.path('/auth');
-                $log.debug('Need login. Redirecting to /auth');
-                return $q.reject({unAuthorized: true});
-              }
-            }
-          }
+          redirectTo: '/'
         });
     }
   ])
