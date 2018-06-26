@@ -12,60 +12,13 @@ angular.module('testApp', [
     pathData: "/view/rest/element/",
     authData: "/view/rest/auth"
   })
-  .factory('elementsResource', ['$resource', 'BASE_URL',
-    function ($resource, BASE_URL) {
-      return $resource(BASE_URL.server + BASE_URL.pathData + ':id', {id: '@id'},
-        {
-          query: {method: 'GET', isArray: true, withCredentials: true},
-          create: {method: 'POST', withCredentials: true},
-          save: {method: 'PUT', withCredentials: true},
-          delete: {method: 'DELETE', withCredentials: true}
-        });
-    }
-  ])
-  .factory('authResource', ['$resource', 'BASE_URL',
-    function ($resource, BASE_URL) {
-      return $resource(BASE_URL.server + BASE_URL.authData,
-        {},
-        {
-          login:
-            {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-              }
-            }
-        });
-    }
-  ])
-  .factory('authFactory', ['authResource', '$log', '$cookies',
-    function (authResource, $log, $cookies) {
-      var auth = {};
-
-      auth.login = function (_login, _password) {
-        var formString = "login=" + _login + "&password=" + _password;
-        $log.debug('### Sending LOGIN request ###');
-        authResource.login(formString).$promise.then(
-          function (response) {
-            $log.debug('### Checking status ###');
-            if (response.status == 'success') {
-              $log.debug('### LOGIN SUCCESS ###');
-              $cookies.put('sessionToken', response.sessionToken, {'path': '/'});
-            } else {
-              $log.debug(response.status);
-            }
-          }
-        )
-      };
-
-      return auth;
-    }
-  ])
-  .config(['$locationProvider', '$routeProvider', '$logProvider',
-    function ($locationProvider, $routeProvider, $logProvider) {
+  .config(['$locationProvider', '$routeProvider', '$logProvider', '$httpProvider',
+    function ($locationProvider, $routeProvider, $logProvider, $httpProvider) {
       $locationProvider.html5Mode(true);
       $logProvider.debugEnabled(true);
+      $httpProvider.interceptors.push('authInterceptor');
 
+      $routeProvider.otherwise({redirectTo: '/'});
       $routeProvider
         .when('/', {
           templateUrl: '/test_front/view/homeTreeView.html',
@@ -134,12 +87,69 @@ angular.module('testApp', [
         })
         .when('/auth', {
           templateUrl: '/test_front/view/authView.html'
-        })
-        .otherwise({
-          redirectTo: '/'
         });
     }
   ])
+  .factory('elementsResource', ['$resource', 'BASE_URL',
+    function ($resource, BASE_URL) {
+      return $resource(BASE_URL.server + BASE_URL.pathData + ':id', {id: '@id'},
+        {
+          query: {method: 'GET', isArray: true, withCredentials: true},
+          create: {method: 'POST', withCredentials: true},
+          save: {method: 'PUT', withCredentials: true},
+          delete: {method: 'DELETE', withCredentials: true}
+        });
+    }
+  ])
+  .factory('authResource', ['$resource', 'BASE_URL',
+    function ($resource, BASE_URL) {
+      return $resource(BASE_URL.server + BASE_URL.authData,
+        {},
+        {
+          login:
+            {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+              }
+            }
+        });
+    }
+  ])
+  .factory('authFactory', ['authResource', '$log', '$cookies',
+    function (authResource, $log, $cookies) {
+      var auth = {};
+
+      auth.login = function (_login, _password) {
+        var formString = "login=" + _login + "&password=" + _password;
+        $log.debug('### Sending LOGIN request ###');
+        authResource.login(formString).$promise.then(
+          function (response) {
+            $log.debug('### Checking status ###');
+            if (response.status == 'success') {
+              $log.debug('### LOGIN SUCCESS ###');
+              $cookies.put('sessionToken', response.sessionToken, {'path': '/'});
+            } else {
+              $log.debug(response.status);
+            }
+          }
+        )
+      };
+
+      return auth;
+    }
+  ])
+  .factory('authInterceptor', function ($rootScope, $q, $cookies) {
+    return {
+      request: function (config) {
+        config.headers = config.headers || {};
+        if ($cookies.get('sessionToken')) {
+          config.headers.Authorization = 'Bearer ' + $cookies.get('sessionToken');
+        }
+        return config;
+      }
+    }
+  })
   .controller('modalConfirmCtrl', ['$scope', 'question', 'close',
     function ($scope, question, close) {
       $scope.question = question;
