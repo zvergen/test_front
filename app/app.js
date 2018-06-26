@@ -18,7 +18,7 @@ angular.module('testApp', [
       $logProvider.debugEnabled(true);
       $httpProvider.interceptors.push('authInterceptor');
 
-      $routeProvider.otherwise({redirectTo: '/'});
+      $routeProvider.otherwise({redirect: '/'});
       $routeProvider
         .when('/', {
           templateUrl: '/test_front/view/homeTreeView.html',
