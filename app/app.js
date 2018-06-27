@@ -8,7 +8,7 @@ angular.module('testApp', [
   'angularModalService'
 ])
   .constant('BASE_URL', {
-    server: "http://localhost:8080",
+    server: "http://zverg.ddnsking.com:8384",
     pathData: "/view/rest/element/",
     authData: "/view/rest/auth"
   })
@@ -21,7 +21,7 @@ angular.module('testApp', [
       $routeProvider.otherwise({redirect: '/'});
       $routeProvider
         .when('/', {
-          templateUrl: '/test_front/view/homeTreeView.html',
+          templateUrl: '/view/homeTreeView.html',
           controller: 'HomeTreeCtrl',
           resolve: {
             token: function ($cookies, $location, $q, $log) {
@@ -50,7 +50,7 @@ angular.module('testApp', [
           }
         })
         .when('/edit/:id', {
-          templateUrl: '/test_front/view/editorView.html',
+          templateUrl: '/view/editorView.html',
           controller: 'editCtrl',
           resolve: {
             token: function ($cookies, $location, $q, $log) {
@@ -68,7 +68,7 @@ angular.module('testApp', [
           }
         })
         .when('/create/:parentId', {
-          templateUrl: '/test_front/view/createView.html',
+          templateUrl: '/view/createView.html',
           controller: 'createCtrl',
           resolve: {
             token: function ($cookies, $location, $q, $log) {
@@ -86,7 +86,7 @@ angular.module('testApp', [
           }
         })
         .when('/auth', {
-          templateUrl: '/test_front/view/authView.html'
+          templateUrl: '/view/authView.html'
         });
     }
   ])
@@ -188,7 +188,7 @@ angular.module('testApp', [
           $scope.authState.token = token;
           $scope.authState.isAuthorized = true;
           $log.debug('Token gained. Redirecting to /home');
-          $location.path('/home');
+          $location.path('/');
         } else {
           $log.debug('### LOGIN Failed. Please try again ###');
           $scope.authState.message = true;
